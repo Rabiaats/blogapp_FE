@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    color:"#657AB8"
+}
+
+.bgColor{
+    background-color: antiquewhite;
+}
+
+.navbar-logo{
+    /* transition: transform 1s linear; */
+}
+
+.navbar-logo{
+    animation: logo 5s ease-in-out infinite alternate;
+}
+
+@keyframes logo {
+
+    100%{
+        transform: rotateZ(380deg) scale(1.1);
+    }
+}

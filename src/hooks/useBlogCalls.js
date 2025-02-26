@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 // import { useDispatch, useSelector} from "react-redux";
 import { fetchFail, fetchStart, getBlogSuccess, getDataSuccess, myBlogs} from '../features/dataSlice';
 import useAxios from './useAxios';
+import { useNavigate } from "react-router-dom";
 // import { getUserCatSuccess } from "../features/dataSlice";
 // import { useNavigate } from "react-router-dom";
 
 const useBlogCalls = () => {
   const dispatch = useDispatch();
   const {axiosToken} = useAxios();
+  const navigate = useNavigate();
+  
   // const {page} = useSelector(state => state.data);
   // const navigate = useNavigate();
 
@@ -58,7 +61,6 @@ const useBlogCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosToken(`${path}/${id}`);
-      console.log(data)
       dispatch(getDataSuccess({data, path: "blog"}))
     } catch (error) {
       dispatch(fetchFail())
@@ -97,12 +99,13 @@ const useBlogCalls = () => {
     }
   }
 
-  const editData = async (path, data) => {
+  const editData = async (path, id, data) => {
     dispatch(fetchStart());
     try {
-      await axiosToken.put(`${path}/${data._id}`, data)
+      await axiosToken.put(`${path}/${id}`, data)
       if(path === "blogs"){
         getBlog(path);
+        navigate(-1);
       }else{
         getData(path)
       }

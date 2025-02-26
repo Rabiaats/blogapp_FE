@@ -56,13 +56,13 @@ const Details = () => {
     }else{
       dispatch(getDataSuccess({data: blogs.find(({_id}) => _id === blogID), path: "blog"}))
     }
-  }, [blogID, blog, blogs, singleData, dispatch]);
+  }, [blogID]);
 
   useEffect(() => {
     if (!blogs.some(({_id}) => _id === blogID && blog !== '')) {
      setBlogs([...blogs, blog])
     }
-  }, [blogs, blogID, blog])
+  }, [blogID])
   
   return (
     <Box sx={{ display: "flex", flexDirection:"column",alignItems:"center", gap:"2rem" }}>

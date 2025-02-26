@@ -26,9 +26,10 @@ export default function NewBlog () {
   const location = useLocation();
   const blog = location.state?.blog || {}; 
 
-  
+  console.log(blog)
+
   const initialValues = {
-    categoryId: blog?.categoryId || "",
+    categoryId: blog?.categoryId._id|| "",
     title: blog?.title || "",
     content: blog?.content || "",
     image: blog?.image || "",
@@ -60,7 +61,7 @@ export default function NewBlog () {
             }
           </Typography>
         </Grid>
-        <BlogGrid initialValues={initialValues}/>
+        <BlogGrid initialValues={initialValues} id={blog._id}/>
       
       </Grid>
     </Container>

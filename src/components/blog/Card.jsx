@@ -165,7 +165,7 @@ export default function BlogCard({ blog }) {
         {timeCalc(blog.createdAt)}
       </Typography>
       {
-        location.pathname === "/myBlog" && 
+        location.pathname === "/myBlog" || (blog.userId._id == user._id && location.pathname === `/details/${blog._id}`) && 
       <Box sx={{display:"flex", justifyContent:"center", gap:"1rem", mt:"0.5rem"}}>
         <Button onClick={() => navigate(`/newBlog`,{state:{blog}})} variant="contained">Update</Button>
         <Button onClick={() => deleteData(blog._id)} variant="contained">Delete</Button>

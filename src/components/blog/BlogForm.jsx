@@ -42,6 +42,7 @@ const BlogForm = ({
     getData("categories");
   }, []);
 
+  console.log(categories)
   return (
     <Form>
       <TextField

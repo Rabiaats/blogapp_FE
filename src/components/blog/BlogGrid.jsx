@@ -6,9 +6,8 @@ import BlogForm, { validationSchema } from "./BlogForm";
 import { useLocation } from "react-router-dom";
 import useBlogCalls from "../../hooks/useBlogCalls";
 
-const BlogGrid = ({initialValues}) => {
+const BlogGrid = ({initialValues, id}) => {
   const { createData, editData } = useBlogCalls();
-  console.log(initialValues)
 
   const location = useLocation();
   return (
@@ -52,9 +51,9 @@ const BlogGrid = ({initialValues}) => {
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
                   //? POST (login)
-                    location.pathname === "/newBlog"
+                      !id
                       ? createData("blogs", values)
-                      : editData("blogs", values);
+                      : editData("blogs",id, values);
                   //? Formu temizleme
                   actions.resetForm();
                   //? Mesaj (Toast)

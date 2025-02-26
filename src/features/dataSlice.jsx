@@ -26,7 +26,7 @@ const dataSlice = createSlice({
     getDataSuccess: (state, { payload }) => {
       console.log(payload)
       state.loading = false;
-      state[payload.path] = payload.data.data;
+      state[payload.path] = payload.data.result;
     },
     getUserBlogSuccess:(state, {payload}) => {
       state.loading = false

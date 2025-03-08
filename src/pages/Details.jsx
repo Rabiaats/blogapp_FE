@@ -42,17 +42,17 @@ import CommentCard from "../components/blog/CommentCard";
 const Details = () => {
   const dispatch = useDispatch();
   const { blogID } = useParams();
-  const { singleData } = useBlogCalls();
+  const { singleBlog } = useBlogCalls();
   const { blog } = useSelector((state) => state.data);
   const navigate = useNavigate();
   // const { page } = useSelector((state) => state.data);
-  // const { postLiked, getBlog } = useBlogCalls();
+  // const { postLiked, getData } = useBlogCalls();
   // const { user } = useSelector((state) => state.auth);
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     if (blogID && !blogs.some(({_id}) => _id === blogID)) {
-      singleData("blogs", blogID);
+      singleBlog("blogs", blogID);
     }else{
       dispatch(getDataSuccess({data: blogs.find(({_id}) => _id === blogID), path: "blog"}))
     }

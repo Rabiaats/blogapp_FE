@@ -109,7 +109,7 @@ export default function BlogCard({ blog }) {
             <IconButton aria-label="views">
               <Visibility />
             </IconButton>
-            <Typography variant="body2">{blog.countOfVisitors}</Typography>
+            <Typography variant="body2">{blog.visitors.length}</Typography>
           </Stack>
         </Stack>
         <Box sx={{ flexGrow: 1 }} />

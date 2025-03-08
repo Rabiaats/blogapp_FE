@@ -6,44 +6,49 @@ import { changePage } from '../features/dataSlice';
 // import { changePage, increasePage, resetData } from '../features/dataSlice';
 import { Box, Stack } from '@mui/system';
 // import { Box, display, Stack } from '@mui/system';
-import { Pagination} from '@mui/material';
-// import { Button, Pagination} from '@mui/material';
+import { Button } from '@mui/material';
 import Card from "../components/blog/Card"
 import Loading from '../components/Loading';
+import { useState } from 'react';
 
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { blogs,page, totalPages,loading } = useSelector((state) => state.data);
-  const { getBlog } = useBlogCalls();
-  // const [isVisible, setIsVisible] = useState(false);
+  const { blogs, loading } = useSelector((state) => state.data);
+  const { getData } = useBlogCalls();
+  const [isVisible, setIsVisible] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(5);
 
   useEffect(() => {
-    getBlog('blogs', page)
-  }, [dispatch, page]);
+    getData('blogs')
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   const toggleVisibility = () => {
-  //     window.scrollY > 300 ? setIsVisible(true) : setIsVisible(false);
-  //   };
+  useEffect(() => {
+    const toggleVisibility = () => {
+      window.scrollY > 300 ? setIsVisible(true) : setIsVisible(false);
+    };
 
-  //   window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
 
-  //   return () => {
-  //     window.removeEventListener("scroll", toggleVisibility);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
 
-  // const handleClick = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: "smooth",
-  //   });
-  // };
+  const showMoreItems = () => {
+    setVisibleCount(prevCount => prevCount + 5);
+  }
 
-  const handleChange = (event, value) => {
-    dispatch(changePage(value))
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
+
+  // const handleChange = (event, value) => {
+  //   dispatch(changePage(value))
+  // };
   
   return (
     <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
@@ -51,7 +56,7 @@ const Dashboard = () => {
         loading ? <Loading/> :
 
     <Stack>
-      {blogs.length ? blogs.filter((blog, index) => blog.isPublish === true).map((blog, index) => (
+      {blogs.length ? blogs.slice(0, visibleCount).filter((blog, index) => blog.isPublish === true).map((blog, index) => (
         <Card key={index} blog={blog}/>
       )) : 'Gosterilecek blog yok'
       }
@@ -63,11 +68,14 @@ const Dashboard = () => {
       <Pagination page={page} onChange={handleChange} count={totalPages} color="error" />
     </Stack>
       } */}
-      {/* {isVisible && (
+      <div>
+          {visibleCount < blogs.length && <button onClick={showMoreItems}>Daha Fazla</button>}
+      </div>
+      {isVisible && (
         <Button variant='contained' className="fixed bottom-0 right-[-40%]" onClick={handleClick}>
           Top
         </Button>
-      )} */}
+      )}
     </Box>
   );
 };

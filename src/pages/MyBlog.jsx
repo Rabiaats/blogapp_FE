@@ -27,7 +27,7 @@ const MyBlog = () => {
   console.log(myBlogs)
     
   // const dispatch = useDispatch();
-  // const { getBlog } = useBlogCalls();
+  // const { getData } = useBlogCalls();
   // const [isVisible, setIsVisible] = useState(false);
     return (
         <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
